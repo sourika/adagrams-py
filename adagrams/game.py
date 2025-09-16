@@ -59,4 +59,34 @@ def score_word(word):
     return total_score
 
 def get_highest_word_score(word_list):
-    pass
+    score_dict = {}
+    for word in word_list:
+        score = score_word(word)
+        score_dict[word] = score
+
+    max_score = -1
+    for score in score_dict.values():
+        if score > max_score:
+            max_score = score
+
+    max_score_list_contenders = []
+    for word, score in score_dict.items():
+        if score == max_score:
+            max_score_list_contenders.append(word)
+
+    if len(max_score_list_contenders) == 1:
+        return max_score_list_contenders[0], max_score
+
+    for word in max_score_list_contenders:
+        if len(word) == 10:
+            return word, max_score  
+
+    winner = max_score_list_contenders[0]
+    min_len = len(winner)
+
+    for i in range(1, len(max_score_list_contenders)):
+        if len(max_score_list_contenders[i]) < min_len:
+            min_len = len(max_score_list_contenders[i])
+            winner = max_score_list_contenders[i]
+
+    return winner, max_score
