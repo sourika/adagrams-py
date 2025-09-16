@@ -7,6 +7,12 @@ LETTER_POOL_DISTRIBUTION = {
     'Y': 2, 'Z': 1
 }
 
+SCORES = {
+        "A": 1, "E": 1, "I": 1, "O": 1, "U": 1, "L": 1, "N": 1, "R": 1, "S": 1, "T": 1,
+    "D": 2, "G": 2, "B": 3, "C": 3, "M": 3, "P": 3, "F": 4, "H": 4, "V": 4, "W": 4, "Y": 4,
+    "K": 5, "J": 8, "X": 8, "Q": 10, "Z": 10
+    }
+
 LETTER_POOL_LIST = []
 for letter, quantity in LETTER_POOL_DISTRIBUTION.items():
     for _ in range (quantity):
@@ -23,7 +29,6 @@ def draw_letters():
         random_index = randint(0, current_len - 1)
         letter = copy_list.pop(random_index)
         hand.append(letter)
-    
     return hand    
 
 
@@ -44,7 +49,14 @@ def uses_available_letters(word, letter_bank):
     return True
 
 def score_word(word):
-    pass
+    total_score = 0
+    for letter in word.upper():
+        total_score += SCORES.get(letter, 0)
+    
+    word_length = len(word)
+    if word_length >= 7 and word_length <= 10:
+        total_score += 8    
+    return total_score
 
 def get_highest_word_score(word_list):
     pass
